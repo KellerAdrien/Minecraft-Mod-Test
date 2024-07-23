@@ -16,39 +16,43 @@ import net.minecraft.util.TypedActionResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import java.util.Random;
+
 public class Navi extends Item {
     public Navi(Settings settings) {
         super(settings);
     }
 
-    // public static final SoundEvent NAVI_SPAWN =
-    // Registry.register(Registries.SOUND_EVENT,
-    // Registry.register(null, Identifier.of("sounds.Navi_Hey"), null),
-    // SoundEvent.of(Identifier.ofVanilla("sounds.Navi_Hey")));/*
-    // ("entity.allay.death") */
+    Random rand = new Random();
+    float minPitch = 0.75F;
+    float maxPitch = 1.35F;
 
+    // register
     public static final SoundEvent NAVI_SPAWN = registerSoundEvent("navi_hey");
-
     public static SoundEvent registerSoundEvent(String name) {
         Identifier id = Identifier.of(ImmersivePunching.MOD_ID, name);
         return Registry.register(Registries.SOUND_EVENT, id, SoundEvent.of(id));
     }
 
+    // On right click
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         // Ensure we don't spawn the lightning only on the client.
         // This is to prevent desync.
         if (world.isClient) {
+            float n = minPitch + (maxPitch - minPitch) * rand.nextFloat();
+            world.playSound(user.getX(), user.getY(), user.getZ(), NAVI_SPAWN, SoundCategory.NEUTRAL, 10000.0F, n,
+                    false);
             return TypedActionResult.pass(user.getStackInHand(hand));
         }
 
-        BlockPos frontOfPlayer = user.getBlockPos().offset(user.getHorizontalFacing(), 10);
-        world.playSound(user.getX(), user.getY(), user.getZ(), NAVI_SPAWN, SoundCategory.NEUTRAL, 10000.0F, 0.8F,
-                false);
+        // BlockPos frontOfPlayer =
+        // user.getBlockPos().offset(user.getHorizontalFacing(), 10);
         // Spawn the lightning bolt.
-        LightningEntity lightningBolt = new LightningEntity(EntityType.LIGHTNING_BOLT, world);
-        lightningBolt.setPosition(frontOfPlayer.toCenterPos());
-        world.spawnEntity(lightningBolt);
+        // LightningEntity lightningBolt = new
+        // LightningEntity(EntityType.LIGHTNING_BOLT, world);
+        // lightningBolt.setPosition(frontOfPlayer.toCenterPos());
+        // world.spawnEntity(lightningBolt);
 
         // Nothing has changed to the item stack,
         // so we just return it how it was.
