@@ -7,7 +7,7 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 
 public class ModItems {
-    public static final Item NAVI = register("navi", new Item(new Item.Settings()));
+    public static final Navi NAVI = register("navi", new Navi(new Item.Settings()));
 
     public static final Item EXAMPLE_FOOD = register("example_food",
             new Item(new Item.Settings().food(FoodList.EXEMPLE_FOOD_COMPONENT)));

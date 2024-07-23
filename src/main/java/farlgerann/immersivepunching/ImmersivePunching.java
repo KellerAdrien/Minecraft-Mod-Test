@@ -6,6 +6,7 @@ import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import farlgerann.immersivepunching.entity.ModEntities;
 import farlgerann.immersivepunching.item.ModItems;
 
 public class ImmersivePunching implements ModInitializer {
@@ -15,6 +16,7 @@ public class ImmersivePunching implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		ModItems.load();
+		ModEntities.load();
 	}
 
 	public static Identifier id(String path) {
