@@ -1,13 +1,16 @@
 package farlgerann.immersivepunching.item;
 
 import farlgerann.immersivepunching.ImmersivePunching;
+import farlgerann.immersivepunching.entity.ModEntities;
+import farlgerann.immersivepunching.entity.NaviEntity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LightningEntity;
+// import net.minecraft.entity.LightningEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Hand;
@@ -43,14 +46,16 @@ public class Navi extends Item {
             float n = minPitch + (maxPitch - minPitch) * rand.nextFloat();
             world.playSound(user.getX(), user.getY(), user.getZ(), NAVI_SPAWN, SoundCategory.NEUTRAL, 10000.0F, n,
                     false);
+
+            BlockPos frontOfPlayer = user.getBlockPos().offset(user.getHorizontalFacing(), 10);
+            EntityType<NaviEntity> naviEntity = ModEntities.NAVI;
+            ServerWorld serv = world.getServer().getWorld(null);
+            naviEntity.spawn(serv, frontOfPlayer, null);
             return TypedActionResult.pass(user.getStackInHand(hand));
         }
 
-        // BlockPos frontOfPlayer =
-        // user.getBlockPos().offset(user.getHorizontalFacing(), 10);
         // Spawn the lightning bolt.
-        // LightningEntity lightningBolt = new
-        // LightningEntity(EntityType.LIGHTNING_BOLT, world);
+        // LightningEntity lightningBolt = new Entity(EntityType.LIGHTNING_BOLT, world);
         // lightningBolt.setPosition(frontOfPlayer.toCenterPos());
         // world.spawnEntity(lightningBolt);
 
