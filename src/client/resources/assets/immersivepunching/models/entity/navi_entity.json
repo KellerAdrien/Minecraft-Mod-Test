@@ -1,6 +1,6 @@
 {
     "parent": "minecraft:entity/generated",
     "textures": {
-        "layer0": "immersivepunching:entity_type/navi/navitoad"
+        "layer0": "immersivepunching:entity/navitoad"
     }
 }
