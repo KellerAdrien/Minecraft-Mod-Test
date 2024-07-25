@@ -1,9 +1,6 @@
-package farlgerann.immersivepunching.item;
+package farlgerann.immersivepunching.item.Navi;
 
 import farlgerann.immersivepunching.ImmersivePunching;
-import farlgerann.immersivepunching.entity.ModEntities;
-import farlgerann.immersivepunching.entity.NaviEntity;
-import net.minecraft.entity.EntityType;
 // import net.minecraft.entity.LightningEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -15,7 +12,6 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -31,6 +27,7 @@ public class Navi extends Item {
 
     // register
     public static final SoundEvent NAVI_SPAWN = registerSoundEvent("navi_hey");
+
     public static SoundEvent registerSoundEvent(String name) {
         Identifier id = Identifier.of(ImmersivePunching.MOD_ID, name);
         return Registry.register(Registries.SOUND_EVENT, id, SoundEvent.of(id));

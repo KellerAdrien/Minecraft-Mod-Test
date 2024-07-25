@@ -1,6 +1,7 @@
 package farlgerann.immersivepunching.item;
 
 import farlgerann.immersivepunching.ImmersivePunching;
+import farlgerann.immersivepunching.item.Navi.Navi;
 import farlgerann.immersivepunching.list.FoodList;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
