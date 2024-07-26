@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Dynamic;
 
+import farlgerann.immersivepunching.ImmersivePunching;
 import farlgerann.immersivepunching.entity.ModEntities;
 
 import java.util.Objects;
@@ -50,6 +51,8 @@ import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.recipe.Ingredient;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryOps;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.GameEventTags;
@@ -61,6 +64,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.GlobalPos;
 import net.minecraft.util.math.MathHelper;
@@ -210,23 +214,22 @@ public class NaviEntity extends PathAwareEntity implements InventoryOwner, Vibra
 
     @Override
     protected SoundEvent getAmbientSound() {
-        return this.hasStackEquipped(EquipmentSlot.MAINHAND) ? SoundEvents.ENTITY_ALLAY_AMBIENT_WITH_ITEM
-                : SoundEvents.ENTITY_ALLAY_AMBIENT_WITHOUT_ITEM;
+        return ModEntities.NAVI_LISTEN;
     }
 
     @Override
     protected SoundEvent getHurtSound(DamageSource source) {
-        return SoundEvents.ENTITY_ALLAY_HURT;
+        return ModEntities.NAVI_YAH;
     }
 
     @Override
     protected SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_ALLAY_DEATH;
+        return ModEntities.NAVI_LEAVE;
     }
 
     @Override
     protected float getSoundVolume() {
-        return 0.4F;
+        return 0.5F;
     }
 
     @Override

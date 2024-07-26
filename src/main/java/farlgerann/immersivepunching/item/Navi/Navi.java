@@ -56,6 +56,6 @@ public class Navi extends Item {
 
         // Nothing has changed to the item stack,
         // so we just return it how it was.
-        return TypedActionResult.success(user.getStackInHand(hand));
+        return TypedActionResult.fail(user.getStackInHand(hand));
     }
 }

@@ -8,9 +8,23 @@ import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 
 public class ModEntities {
+
+        public static final SoundEvent NAVI_YAH = registerSoundEvent("navi_yah");
+        public static final SoundEvent NAVI_HELLO = registerSoundEvent("navi_hello");
+        public static final SoundEvent NAVI_SPAWN = registerSoundEvent("navi_spawn");
+        public static final SoundEvent NAVI_LISTEN = registerSoundEvent("navi_listen");
+        public static final SoundEvent NAVI_LEAVE = registerSoundEvent("navi_leave");
+        public static final SoundEvent NAVI_BUMP = registerSoundEvent("navi_bump");
+
+        public static SoundEvent registerSoundEvent(String name) {
+                Identifier id = Identifier.of(ImmersivePunching.MOD_ID, name);
+                return Registry.register(Registries.SOUND_EVENT, id, SoundEvent.of(id));
+        }
+
         public static final EntityType<NaviEntity> NAVI = Registry.register(Registries.ENTITY_TYPE,
                         Identifier.of(ImmersivePunching.MOD_ID, "navi_entity"),
                         EntityType.Builder.create(NaviEntity::new, SpawnGroup.CREATURE)
