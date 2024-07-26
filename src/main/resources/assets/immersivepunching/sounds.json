@@ -2,7 +2,36 @@
     "navi_hey": {
         "subtitle": "sounds.immersivepunching.navi_hey",
         "sounds": [
-            "immersivepunching:navi_hey"
+            "immersivepunching:navi_hey",
+            "immersivepunching:navi_hello",
+            "immersivepunching:navi_spawn"
+        ]
+    },
+    "navi_yah": {
+        "subtitle": "sounds.immersivepunching.navi_yah",
+        "sounds": [
+            "immersivepunching:navi_yah",
+            "immersivepunching:navi_bump"
+        ]
+    },
+    "navi_spawn": {
+        "subtitle": "sounds.immersivepunching.navi_spawn",
+        "sounds": [
+            "immersivepunching:navi_spawn"
+        ]
+    },
+    "navi_listen": {
+        "subtitle": "sounds.immersivepunching.navi_listen",
+        "sounds": [
+            "immersivepunching:navi_listen",
+            "immersivepunching:navi_watchout",
+            "immersivepunching:navi_look"
+        ]
+    },
+    "navi_leave": {
+        "subtitle": "sounds.immersivepunching.navi_leave",
+        "sounds": [
+            "immersivepunching:navi_leave"
         ]
     }
 }
