@@ -41,7 +41,6 @@ import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.mob.PathAwareEntity;
 import net.minecraft.entity.passive.AllayBrain;
-import net.minecraft.entity.passive.AllayEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
@@ -74,19 +73,15 @@ import net.minecraft.world.event.GameEvent;
 import net.minecraft.world.event.PositionSource;
 import net.minecraft.world.event.Vibrations;
 import net.minecraft.world.event.listener.EntityGameEventHandler;
-import net.minecraft.world.event.listener.GameEventListener;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 
 public class NaviEntity extends PathAwareEntity implements InventoryOwner, Vibrations {
     private static final Logger LOGGER = LogUtils.getLogger();
     private static final Vec3i ITEM_PICKUP_RANGE_EXPANDER = new Vec3i(1, 1, 1);
-    private static final int field_39461 = 5;
-    private static final float field_39462 = 55.0F;
-    private static final float field_39463 = 15.0F;
+
     private static final Ingredient DUPLICATION_INGREDIENT = Ingredient.ofItems(Items.AMETHYST_SHARD);
-    private static final int DUPLICATION_COOLDOWN = 6000;
-    private static final int field_39679 = 3;
+
     private static final TrackedData<Boolean> DANCING = DataTracker.registerData(NaviEntity.class,
             TrackedDataHandlerRegistry.BOOLEAN);
     private static final TrackedData<Boolean> CAN_DUPLICATE = DataTracker.registerData(NaviEntity.class,
@@ -113,7 +108,6 @@ public class NaviEntity extends PathAwareEntity implements InventoryOwner, Vibra
     private final EntityGameEventHandler<Vibrations.VibrationListener> gameEventHandler;
     private Vibrations.ListenerData vibrationListenerData;
     private final Vibrations.Callback vibrationCallback;
-    private final EntityGameEventHandler<NaviEntity.JukeboxEventListener> jukeboxEventHandler;
     private final SimpleInventory inventory = new SimpleInventory(1);
     @Nullable
     private BlockPos jukeboxPos;
@@ -131,9 +125,6 @@ public class NaviEntity extends PathAwareEntity implements InventoryOwner, Vibra
         this.vibrationCallback = new NaviEntity.VibrationCallback();
         this.vibrationListenerData = new Vibrations.ListenerData();
         this.gameEventHandler = new EntityGameEventHandler<>(new Vibrations.VibrationListener(this));
-        this.jukeboxEventHandler = new EntityGameEventHandler<>(
-                new NaviEntity.JukeboxEventListener(this.vibrationCallback.getPositionSource(),
-                        GameEvent.JUKEBOX_PLAY.value().notificationRadius()));
     }
 
     @Override
@@ -415,7 +406,6 @@ public class NaviEntity extends PathAwareEntity implements InventoryOwner, Vibra
     public void updateEventHandler(BiConsumer<EntityGameEventHandler<?>, ServerWorld> callback) {
         if (this.getWorld() instanceof ServerWorld serverWorld) {
             callback.accept(this.gameEventHandler, serverWorld);
-            callback.accept(this.jukeboxEventHandler, serverWorld);
         }
     }
 
@@ -578,42 +568,7 @@ public class NaviEntity extends PathAwareEntity implements InventoryOwner, Vibra
         return this.vibrationCallback;
     }
 
-    class JukeboxEventListener implements GameEventListener {
-        private final PositionSource positionSource;
-        private final int range;
-
-        public JukeboxEventListener(final PositionSource positionSource, final int range) {
-            this.positionSource = positionSource;
-            this.range = range;
-        }
-
-        @Override
-        public PositionSource getPositionSource() {
-            return this.positionSource;
-        }
-
-        @Override
-        public int getRange() {
-            return this.range;
-        }
-
-        @Override
-        public boolean listen(ServerWorld world, RegistryEntry<GameEvent> event, GameEvent.Emitter emitter,
-                Vec3d emitterPos) {
-            if (event.matches(GameEvent.JUKEBOX_PLAY)) {
-                NaviEntity.this.updateJukeboxPos(BlockPos.ofFloored(emitterPos), true);
-                return true;
-            } else if (event.matches(GameEvent.JUKEBOX_STOP_PLAY)) {
-                NaviEntity.this.updateJukeboxPos(BlockPos.ofFloored(emitterPos), false);
-                return true;
-            } else {
-                return false;
-            }
-        }
-    }
-
     class VibrationCallback implements Vibrations.Callback {
-        private static final int RANGE = 16;
         private final PositionSource positionSource = new EntityPositionSource(NaviEntity.this,
                 NaviEntity.this.getStandingEyeHeight());
 
@@ -644,6 +599,7 @@ public class NaviEntity extends PathAwareEntity implements InventoryOwner, Vibra
             }
         }
 
+        @SuppressWarnings("deprecation")
         @Override
         public void accept(ServerWorld world, BlockPos pos, RegistryEntry<GameEvent> event,
                 @Nullable Entity sourceEntity, @Nullable Entity entity, float distance) {
