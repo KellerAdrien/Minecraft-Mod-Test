@@ -1,7 +1,8 @@
 package farlgerann.immersivepunching.item.Navi;
 
 import farlgerann.immersivepunching.ImmersivePunching;
-// import net.minecraft.entity.LightningEntity;
+import farlgerann.immersivepunching.entity.ModEntities;
+import farlgerann.immersivepunching.entity.Navi.NaviEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -12,6 +13,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Hand;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.TypedActionResult;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -33,6 +35,22 @@ public class Navi extends Item {
         return Registry.register(Registries.SOUND_EVENT, id, SoundEvent.of(id));
     }
 
+    // public void playSpawnEffects() {
+    // if (this.getWorld().isClient) {
+    // for (int i = 0; i < 20; i++) {
+    // double d = this.random.nextGaussian() * 0.02;
+    // double e = this.random.nextGaussian() * 0.02;
+    // double f = this.random.nextGaussian() * 0.02;
+    // double g = 10.0;
+    // this.getWorld().addParticle(ParticleTypes.POOF, this.offsetX(1.0) - d * 10.0,
+    // this.getRandomBodyY() - e * 10.0, this.getParticleZ(1.0) - f * 10.0, d, e,
+    // f);
+    // }
+    // } else {
+    // this.getWorld().sendEntityStatus(this, EntityStatuses.PLAY_SPAWN_EFFECTS);
+    // }
+    // }
+
     // On right click
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
@@ -43,10 +61,14 @@ public class Navi extends Item {
             world.playSound(user.getX(), user.getY(), user.getZ(), NAVI_SPAWN, SoundCategory.NEUTRAL, 10000.0F, n,
                     false);
 
-            // BlockPos frontOfPlayer =
-            // user.getBlockPos().offset(user.getHorizontalFacing(), 10);
-
             return TypedActionResult.pass(user.getStackInHand(hand));
+        } else {
+            BlockPos frontOfPlayer = user.getBlockPos().offset(user.getHorizontalFacing(), 3);
+            NaviEntity naviEntity = ModEntities.NAVI.create(world);
+            if (naviEntity != null) {
+                naviEntity.setPosition(frontOfPlayer.toCenterPos());
+                world.spawnEntity(user);
+            }
         }
 
         // Spawn the lightning bolt.

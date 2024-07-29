@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Dynamic;
 
-import farlgerann.immersivepunching.ImmersivePunching;
 import farlgerann.immersivepunching.entity.ModEntities;
 
 import java.util.Objects;
@@ -51,8 +50,6 @@ import net.minecraft.nbt.NbtElement;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.recipe.Ingredient;
-import net.minecraft.registry.Registries;
-import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryOps;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.registry.tag.GameEventTags;
@@ -64,7 +61,6 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.GlobalPos;
 import net.minecraft.util.math.MathHelper;
