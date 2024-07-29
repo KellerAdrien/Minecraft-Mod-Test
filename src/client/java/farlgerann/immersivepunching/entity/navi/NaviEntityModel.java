@@ -41,9 +41,8 @@ public class NaviEntityModel<T extends NaviEntity> extends SinglePartEntityModel
                                 ModelTransform.pivot(0.0F, 23.5F, 0.0F));
                 modelPartData2.addChild(
                                 EntityModelPartNames.HEAD,
-                                ModelPartBuilder.create().uv(0, 13).cuboid(-1.75F, -3.25F, -5.5F, 5.0F, 5.0F, 5.0F,
-                                                new Dilation(0.0F)),
-                                ModelTransform.pivot(0.0F, -3.99F, 0.0F));
+                                ModelPartBuilder.create(),
+                                ModelTransform.pivot(0.0F, 0.0F, 0.0F));
                 ModelPartData modelPartData3 = modelPartData2.addChild("body", ModelPartBuilder.create(),
                                 ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
@@ -60,23 +59,15 @@ public class NaviEntityModel<T extends NaviEntity> extends SinglePartEntityModel
                 ModelPartData left_wing = modelPartData3.addChild("left_wing",
                                 ModelPartBuilder.create().uv(0, -12).cuboid(1.25F, -7.5F,
                                                 0.75F, 0.0F, 12.0F, 12.0F, new Dilation(0.0F)),
-                                ModelTransform.pivot(-1.0F, -2.25F, -1.0F));
+                                ModelTransform.pivot(0.0F, 0.0F, 0.0F));
 
                 ModelPartData right_wing = modelPartData3
                                 .addChild("right_wing",
                                                 ModelPartBuilder.create().uv(0, -12).cuboid(0.75F, -7.75F, 0.5F, 0.0F,
                                                                 12.0F,
                                                                 12.0F, new Dilation(0.0F)),
-                                                ModelTransform.pivot(-2.5F, -2.0F, -1.0F));
+                                                ModelTransform.pivot(0.0F, 0.0F, 0.0F));
                 return TexturedModelData.of(modelData, 64, 64);
-        }
-
-        @Override
-        public void render(MatrixStack matrices, VertexConsumer vertices, int light, int overlay, int color) {
-                head.render(matrices, vertices, light, overlay, color);
-                body.render(matrices, vertices, light, overlay, color);
-                leftWing.render(matrices, vertices, light, overlay, color);
-                rightWing.render(matrices, vertices, light, overlay, color);
         }
 
         @Override
