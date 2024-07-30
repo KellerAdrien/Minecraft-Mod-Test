@@ -169,11 +169,11 @@ public class NaviEntity extends PathAwareEntity implements InventoryOwner, Vibra
 
     @Override
     public void travel(Vec3d movementInput) {
-        double d = this.random.nextGaussian() * 0.02;
-        double e = this.random.nextGaussian() * 0.02;
-        double f = this.random.nextGaussian() * 0.02;
-        this.getWorld().addParticle(ParticleTypes.FIREWORK, this.getParticleX(1.0), this.getRandomBodyY() + 0.5,
-                this.getParticleZ(1.0), d, e, f);
+        double d = this.random.nextGaussian() * 0.01;
+        double e = this.random.nextGaussian() * 0.01;
+        double f = this.random.nextGaussian() * 0.01;
+        this.getWorld().addParticle(ParticleTypes.FIREWORK, this.getParticleX(0.6), this.getRandomBodyY(),
+                this.getParticleZ(0.6), d, e, f);
         if (this.isLogicalSideForUpdatingMovement()) {
             if (this.isTouchingWater()) {
                 this.updateVelocity(0.02F, movementInput);
@@ -187,6 +187,7 @@ public class NaviEntity extends PathAwareEntity implements InventoryOwner, Vibra
                 this.updateVelocity(this.getMovementSpeed(), movementInput);
                 this.move(MovementType.SELF, this.getVelocity());
                 this.setVelocity(this.getVelocity().multiply(0.91F));
+
             }
         }
 
